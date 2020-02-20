@@ -5,7 +5,7 @@
  */
 
 import {processMetadataFiles} from './metadataProcessing.js'
-import {populateSamples, initiateEdxDb, clearWebdataForUpdate,
+import {populateSamples, initiateCourseraDb, clearWebdataForUpdate,
     deleteEverything, processTablesForDownload} from "./databaseHelpers.js";
 import {loader, downloadForumSegmentation, progressDisplay, webdataJSON, verifyBrowser} from './helpers.js'
 import {processGeneralSessions, processForumSessions, processVideoInteractionSessions,
@@ -17,7 +17,7 @@ var connection = new JsStore.Instance();
 window.onload = function () {
     //// PAGE INITIALIZATION  //////////////////////////////////////////////////////////////////////////////
     verifyBrowser();
-    initiateEdxDb(connection);
+    initiateCourseraDb(connection);
     prepareDashboard();
     drawCharts(connection).then(function () {console.log('Charts Ready')}).catch(function (error) {
         loader(false);

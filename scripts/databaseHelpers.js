@@ -7,18 +7,18 @@ let testing = false;
  * Function to verify if the edx database exists and start the dashboard, or generate it otherwise
  * @param connection Main JsStore worker that handles the connection to SqlWeb
  */
-export function initiateEdxDb(connection) {
-    let dbName = "edxdb";
+export function initiateCourseraDb(connection) {
+    let dbName = "courseradb";
     connection.runSql('ISDBEXIST ' + dbName).then(function (isExist) {
         if (isExist) {
             connection.runSql('OPENDB ' + dbName).then(function () {
                 loader(false);
-                toastr.success('Database ready', 'ELAT',  {timeOut: 1500});
+                toastr.success('Database ready', 'CLAT',  {timeOut: 1500});
                 prepareTables(connection);
             });
         } else {
             toastr.info("Welcome! If this is your first time here, visit <a href='https://mvallet91.github.io/ELAT'>ELAT Home</a> to learn more", "ELAT",  {timeOut: 7000});
-            let dbQuery = getEdxDbQuery();
+            let dbQuery = getCourseraDbQuery();
             connection.runSql(dbQuery).then(function (tables) {
                 toastr.success('Database generated, please reload the page', 'ELAT',  {timeOut: 5000});
                 console.log(tables);
@@ -365,8 +365,8 @@ export function processTablesForDownload(tablename, connection) {
  * Generates the schema for the edX database
  * @returns {string} SQL-style query to be processed by the SqlWeb library
  */
-export function getEdxDbQuery() {
-    let db = "DEFINE DB edxdb;";
+export function getCourseraDbQuery() {
+    let db = "DEFINE DB courseradb;";
 
     let courses = `DEFINE TABLE courses(        
         course_id PRIMARYKEY STRING,
